@@ -32,7 +32,7 @@ public class ProductManager implements ProductService{
 	@Override
 	public Product getById(int id) {
 		// TODO Auto-generated method stub
-		return new Product(6,"Bilgisayar",1323,3);
+		return new Product(6,"Bilgisayar",13223,3);
 	}
 
 	@Override
