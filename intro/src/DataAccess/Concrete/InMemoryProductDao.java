@@ -1,9 +1,11 @@
 package DataAccess.Concrete;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import DataAccess.Abstract.ProductDao;
+import Entities.Concrete.Customer;
 import Entities.Concrete.Product;
 
 public class InMemoryProductDao implements ProductDao {
@@ -16,31 +18,34 @@ public class InMemoryProductDao implements ProductDao {
 		data.add(new Product(2,"Motor",12000,1));
 		data.add(new Product(3,"Bisiklet",2500,31));
 		data.add(new Product(4,"PS5",7890,22));
-		data.add(new Product(5,"Ekran Kartý",4596,12));
+		data.add(new Product(5,"Ekran KartÄ±",4596,12));
 	}
 
 	@Override
 	public void add(Product entity) {
 		data.add(entity);
-		System.out.println("Ürün Eklendi");
 	}
 
 	@Override
 	public void update(Product entity) {
-		System.out.println("Ürün Güncellendi");
-		
+		var product = this.getById(entity.id);		
+		product.productName = entity.productName;
+		product.unitPrice = entity.unitPrice;
+		product.unitsInStock = entity.unitsInStock;
 	}
 
 	@Override
 	public void delete(Product entity) {
-		System.out.println("Ürün Silindi");
-		
+		var product = this.getById(entity.id);
+		this.data.remove(product);
 	}
 
 	@Override
 	public Product getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		var product = this.data.stream()
+				.filter((p) -> p.id == id)
+				.findFirst().orElse(new Product(0,"",0,0));
+		return product;
 	}
 
 	@Override
